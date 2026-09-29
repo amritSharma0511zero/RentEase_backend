@@ -6,6 +6,7 @@ import healthRoute from './routes/healthRoute.js';
 import cors from 'cors';
 import errorMiddleware from './middleware/errorMiddleware.js';
 import authRoute from "./routes/authRoutes.js";
+import propertyRoute from "./routes/propertyRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(cookieParser());
 
 app.use("/api/heath", healthRoute)
 app.use("/api/auth", authRoute);
+app.use("/api/properties", propertyRoute);
 
 app.use(errorMiddleware);
 

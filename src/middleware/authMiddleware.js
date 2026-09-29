@@ -1,10 +1,5 @@
-// const {
-//   verifyAccessToken,
-// } = require("../utils/token");
 
 import { verifyAccessToken } from "../utils/token.js";
-
-// const AppError = require("../utils/AppError");
 import AppError from "../utils/AppError.js";
 
 export const authenticate = (req, res, next) => {
