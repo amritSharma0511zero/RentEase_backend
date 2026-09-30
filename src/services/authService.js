@@ -48,6 +48,7 @@ export const loginUser = async ({ email, password }) => {
 
 export const getCurrentUser = async (userId) => {
   const user = await User.findById(userId);
+  // console.log("this is get Current User", user);
 
   if (!user) {
     throw new AppError("User not found", 404);

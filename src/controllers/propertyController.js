@@ -23,7 +23,7 @@ export const createPropertyController = async (req, res, next) => {
 
 export const getAllPropertiesController = async (req, res, next) => {
   try {
-    const properties = await getAllProperties();
+    const properties = await getAllProperties(req.query);
 
     res.status(200).json({
       success: true,
