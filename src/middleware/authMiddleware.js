@@ -2,7 +2,7 @@
 import { verifyAccessToken } from "../utils/token.js";
 import AppError from "../utils/AppError.js";
 
-export const authenticate = (req, res, next) => {
+export const  authenticate = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 

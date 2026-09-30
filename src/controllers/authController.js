@@ -32,9 +32,6 @@ export const login = async (req, res, next) => {
     const accessToken = generateAccessToken(user);
     const refreshToken = generateRefreshToken(user);
 
-    console.log("tthis is accesstoken", accessToken);
-    console.log("this is refreshtoken", refreshToken);
-
     res.cookie(
       "refreshToken",
       refreshToken,
@@ -55,7 +52,7 @@ export const login = async (req, res, next) => {
       },
     });
   } catch (error) {
-      console.log("this is error");
+    console.log("this is error from login");
     next(error);
   }
 };
@@ -80,7 +77,7 @@ export const getMe = async (req, res, next) => {
       },
     });
   } catch (error) {
-    next(error);
+    next("Error in getme",error);
   }
 };
 
