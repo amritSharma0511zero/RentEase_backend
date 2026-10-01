@@ -3,6 +3,12 @@ import express from "express";
 import { authenticate } from "../middleware/authMiddleware.js";
 import { authorizeRoles } from "../middleware/roleMiddleware.js";
 import {
+  deletePropertyImage,
+  replacePropertyImage,
+  uploadPropertyImages,
+} from "../controllers/propertyImageController.js";
+import upload from "../middleware/uploadMiddleware.js";
+import {
   createPropertyController,
   deletePropertyController,
   getAllPropertiesController,
@@ -16,12 +22,7 @@ const router = express.Router();
 
 router.get("/", getAllPropertiesController);
 
-router.get("/:id", getPropertyByIdController);
-
-// Owner routes
-
-router.post("/", authenticate, authorizeRoles("OWNER"), createPropertyController);
-
+//owner routes
 router.get(
   "/owner/my-properties",
   authenticate,
@@ -29,8 +30,53 @@ router.get(
   getMyPropertiesController,
 );
 
-router.put("/:id", authenticate, authorizeRoles("OWNER"), updatePropertyController);
+router.get("/:id", getPropertyByIdController);
 
-router.delete("/:id", authenticate, authorizeRoles("OWNER"), deletePropertyController);
+// Owner routes
+
+router.post(
+  "/",
+  authenticate,
+  authorizeRoles("OWNER"),
+  createPropertyController,
+);
+
+router.put(
+  "/:id",
+  authenticate,
+  authorizeRoles("OWNER"),
+  updatePropertyController,
+);
+
+router.delete(
+  "/:id",
+  authenticate,
+  authorizeRoles("OWNER"),
+  deletePropertyController,
+);
+
+// Property images  -- Only owner
+router.post(
+  "/:id/images",
+  authenticate,
+  authorizeRoles("OWNER"),
+  upload.array("images", 10),
+  uploadPropertyImages,
+);
+
+router.delete(
+  "/:id/images/:imageId",
+  authenticate,
+  authorizeRoles("OWNER"),
+  deletePropertyImage,
+);
+
+router.put(
+  "/:id/images/:imageId",
+  authenticate,
+  authorizeRoles("OWNER"),
+  upload.single("image"),
+  replacePropertyImage
+);
 
 export default router;

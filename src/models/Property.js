@@ -26,15 +26,7 @@ const propertySchema = new mongoose.Schema(
 
     propertyType: {
       type: String,
-      enum: [
-        "APARTMENT",
-        "HOUSE",
-        "VILLA",
-        "PG",
-        "OFFICE",
-        "SHOP",
-        "LAND",
-      ],
+      enum: ["APARTMENT", "HOUSE", "VILLA", "PG", "OFFICE", "SHOP", "LAND"],
       required: true,
     },
 
@@ -94,7 +86,18 @@ const propertySchema = new mongoose.Schema(
     },
 
     images: {
-      type: [String],
+      type: [
+        {
+          url: {
+            type: String,
+            required: true,
+          },
+          publicId: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
       default: [],
     },
 
@@ -106,13 +109,7 @@ const propertySchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: [
-        "PENDING",
-        "APPROVED",
-        "REJECTED",
-        "SOLD",
-        "RENTED",
-      ],
+      enum: ["PENDING", "APPROVED", "REJECTED", "SOLD", "RENTED"],
       default: "PENDING",
     },
 
@@ -128,12 +125,9 @@ const propertySchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const Property = mongoose.model(
-  "Property",
-  propertySchema
-);
+const Property = mongoose.model("Property", propertySchema);
 
 export default Property;
