@@ -3,7 +3,6 @@ import express from 'express';
 import { approvePropertyContoller, getPropertiesController, getPropertyByIdController, rejectPropertyController } from '../controllers/adminPropertyController.js';
 import { authenticate } from '../middleware/authMiddleware.js';
 import { authorizeRoles } from '../middleware/roleMiddleware.js';
-import { createNotification } from '../services/notificationService.js';
 
 const router = express.Router();
 
