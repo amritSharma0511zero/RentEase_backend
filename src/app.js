@@ -8,6 +8,8 @@ import errorMiddleware from "./middleware/errorMiddleware.js";
 import authRoute from "./routes/authRoutes.js";
 import propertyRoute from "./routes/propertyRoutes.js";
 import adminPropertyRoute from "./routes/adminPropertyRoutes.js";
+import notificationRoute from "./routes/notificationRoutes.js";
+import adminUserRoute from "./routes/adminUserRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -28,6 +30,8 @@ app.use("/api/heath", healthRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/properties", propertyRoute);
 app.use("/api/admin/properties", adminPropertyRoute);
+app.use("/api/notifications", notificationRoute);
+app.use("/api/admin/users", adminUserRoute);
 
 app.use(errorMiddleware);
 
