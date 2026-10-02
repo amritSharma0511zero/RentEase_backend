@@ -1,6 +1,7 @@
 import { registerUser,loginUser, getCurrentUser, refreshUserToken } from "../services/authService.js";
 import { generateAccessToken,generateRefreshToken} from "../utils/token.js";
 import { getRefreshTokenCookieOptions } from "../utils/cookies.js";
+import AppError from "../utils/AppError.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -63,6 +64,7 @@ export const getMe = async (req, res, next) => {
       req.user.id
     );
 
+    console.log("this is getme user", user);
     res.status(200).json({
       success: true,
       data: {
@@ -81,6 +83,36 @@ export const getMe = async (req, res, next) => {
   }
 };
 
+// export const refresh = async (req, res, next) => {
+//   try {
+//     const refreshToken = req.cookies.refreshToken;
+
+//     // console.log("refreshtoken", refreshToken);
+//     if (!refreshToken) {
+//       throw new AppError(
+//         "Refresh token not found",
+//         401
+//       );
+//     }
+
+//     const accessToken =
+//       await refreshUserToken(
+//         refreshToken
+//       );
+
+//     // console.log("accesstoken", accessToken);
+//     res.status(200).json({
+//       success: true,
+//       message: "Access token refreshed",
+//       data: {
+//         accessToken,
+//       },
+//     });
+//   } catch (error) {
+//     next("error in refresh",error);
+//   }
+// };
+
 export const refresh = async (req, res, next) => {
   try {
     const refreshToken = req.cookies.refreshToken;
@@ -92,10 +124,9 @@ export const refresh = async (req, res, next) => {
       );
     }
 
-    const accessToken =
-      await refreshUserToken(
-        refreshToken
-      );
+    const accessToken = await refreshUserToken(
+      refreshToken
+    );
 
     res.status(200).json({
       success: true,
@@ -105,10 +136,10 @@ export const refresh = async (req, res, next) => {
       },
     });
   } catch (error) {
+    console.log("Error in refresh:", error);
     next(error);
   }
 };
-
 export const logout = async (req, res, next) => {
   try {
     res.clearCookie("refreshToken", {
