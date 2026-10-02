@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.js";
 import AppError from "../utils/AppError.js";
+import { verifyRefreshToken,generateAccessToken } from "../utils/token.js";
 
 export const registerUser = async ({ name, email, password }) => {
   const normalizedEmail = email.toLowerCase().trim();
@@ -63,7 +64,7 @@ export const refreshUserToken = async (refreshToken) => {
 //     generateAccessToken,
 //   } = require("../utils/token");
 
-  const {verifyRefreshToken,generateAccessToken} = require("../utils/token.js");
+  // const {verifyRefreshToken,generateAccessToken} = require("../utils/token.js");
 
   const decoded = verifyRefreshToken(refreshToken);
 

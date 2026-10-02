@@ -33,6 +33,7 @@ export const verifyAccessToken = (token) => {
 };
 
 export const verifyRefreshToken = (token) => {
+  // console.log("verfyrefreshtoken",token);
   return jwt.verify(
     token,
     process.env.REFRESH_TOKEN_SECRET
