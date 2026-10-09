@@ -1,6 +1,14 @@
 // const mongoose = require("mongoose");
 import mongoose from "mongoose";
 
+const toIST = (date) => {
+  if (!date) return date;
+
+  return new Date(date).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+  });
+};
+
 const userSchema = new mongoose.Schema(
   {
     name: {

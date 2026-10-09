@@ -1,2 +1,5 @@
 .env
 node_modules
+
+test-cloudinary.js
+test-image.jpg
